@@ -17,6 +17,20 @@ TCP_PORT = 55555
 
 
 
+def checkIfProcessRunning(processName):
+    '''
+    Check if there is any running process that contains the given name processName.
+    '''
+    #Iterate over the all the running process
+    for proc in psutil.process_iter():
+        try:
+            # Check if process name contains the given name string.
+            if processName.lower() in proc.name().lower():
+                return True
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+            pass
+    return False;
+
 
 class Sensor:
     Name = ""
@@ -310,7 +324,18 @@ if __name__ == '__main__':
 
     while(1):
                      
-            
+         
+        while (checkIfProcessRunning('LibreHardwareMonitor') == False):
+            print(getTime() + " LHM not running")
+            print(getTime() + " Trying to start LHM...")
+            try:
+                os.startfile('LibreHardwareMonitor\LibreHardwareMonitor.exe')
+            except:
+                print(getTime() + " Error while starting LHM!")
+            time.sleep(10)
+        
+        print(getTime() + " LHM running")
+         
         rigName = environ.get('worker')
         print("\n" + rigName)
         
