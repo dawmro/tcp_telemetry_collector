@@ -6,6 +6,6 @@ Libre Hardware Monitor is being used as data source for WMI: https://github.com/
 
 
 ## Usage
-1. compile tcp_receiver.c  with "gcc tcp_receiver.c"
+1. compile tcp_receiver.c  with ``` sh gcc tcp_receiver.c ```
 2. run ./a.out 
 3. run python script
